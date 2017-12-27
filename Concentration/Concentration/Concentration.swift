@@ -8,22 +8,25 @@
 
 import Foundation
 
-class Concentration {
+struct  Concentration {
     private(set) var cards = [Card]()
     
     private var indexOfOneAndOnlyFaceUpCard: Int? {
         get {
-            var foundIndex: Int?
-            for index in cards.indices {
-                if cards[index].isFaceUp {
-                    if foundIndex == nil {
-                        foundIndex = index
-                    } else {
-                        return nil
-                    }
-                }
-            }
-            return foundIndex
+            return cards.indices.filter { cards[$0].isFaceUp }.oneAndOnly
+//            let faceUpCardIndices = cards.indices.filter { cards[$0].isFaceUp }
+//            return faceUpCardIndices.count == 1 ? faceUpCardIndices.first : nil
+//            var foundIndex: Int?
+//            for index in cards.indices {
+//                if cards[index].isFaceUp {
+//                    if foundIndex == nil {
+//                        foundIndex = index
+//                    } else {
+//                        return nil
+//                    }
+//                }
+//            }
+//            return foundIndex
         }
         set {
             for index in cards.indices {
@@ -32,12 +35,12 @@ class Concentration {
         }
     }
     
-    func chooseCard(at index: Int) {
+    mutating func chooseCard(at index: Int) {
         assert(cards.indices.contains(index), "Concentration.chooseCard(at: \(index)): chosen index not in the cards")
         if !cards[index].isMatched {
             if let matchIndex = indexOfOneAndOnlyFaceUpCard, matchIndex != index {
                 // check if cards match
-                if cards[matchIndex].identifier == cards[index].identifier {
+                if cards[matchIndex] == cards[index] {
                     cards[matchIndex].isMatched = true
                     cards[index].isMatched = true
                 }
@@ -62,9 +65,15 @@ class Concentration {
         }
         // TODO: Shuffle the cards!
         for _ in cards.indices {
-//            let randomIndex = Int(arc4random_uniform(UInt32(cards.count)))
-            cards.append(cards[cards.count.arc4random])
-            cards.remove(at: cards.count.arc4random)
+            let randomIndex = cards.count.arc4random
+            cards.append(cards[randomIndex])
+            cards.remove(at: randomIndex)
         }
+    }
+}
+
+extension Collection {
+    var oneAndOnly: Element? {
+        return count == 1 ? first : nil
     }
 }
