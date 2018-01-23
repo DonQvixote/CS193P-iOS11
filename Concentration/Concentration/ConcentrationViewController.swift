@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ConcentrationViewController: UIViewController {
 
     private(set) var flipCount = 0 {
         didSet {
@@ -16,9 +16,17 @@ class ViewController: UIViewController {
         }
     }
     
-    private var emojiChoices = ["🦇", "😱", "🙀", "😈", "🎃", "👻,", "🍭", "🍬,", "🍎"]
-//    private var emojiChoices = "🦇😱🙀😈🎃👻🍭🍬🍎"
+//    private var emojiChoices = ["🦇", "😱", "🙀", "😈", "🎃", "👻,", "🍭", "🍬,", "🍎"]
+    private var emojiChoices = "🦇😱🙀😈🎃👻🍭🍬🍎"
     private var emoji = [Card: String]()
+    
+    var theme: String? {
+        didSet {
+            emojiChoices = theme ?? ""
+            emoji = [:]
+            updateViewFromModel()
+        }
+    }
     
     private lazy var game = Concentration(numberOfPairsOfCards: numberOfPairsOfCards)
     
@@ -45,15 +53,17 @@ class ViewController: UIViewController {
     }
     
     private func updateViewFromModel() {
-        for index in cardButtons.indices {
-            let button = cardButtons[index]
-            let card = game.cards[index]
-            if card.isFaceUp {
-                button.setTitle(emoji(for: card), for: .normal)
-                button.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-            } else {
-                button.setTitle("", for: .normal)
-                button.backgroundColor = card.isMatched ? #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0) : #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 1)
+        if cardButtons != nil {
+            for index in cardButtons.indices {
+                let button = cardButtons[index]
+                let card = game.cards[index]
+                if card.isFaceUp {
+                    button.setTitle(emoji(for: card), for: .normal)
+                    button.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+                } else {
+                    button.setTitle("", for: .normal)
+                    button.backgroundColor = card.isMatched ? #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0) : #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
+                }
             }
         }
     }
@@ -61,7 +71,7 @@ class ViewController: UIViewController {
     private func updateFlipCountLabel() {
         let attributes: [NSAttributedStringKey: Any] = [
             .strokeWidth: 5.0,
-            .strokeColor: UIColor.orange
+            .strokeColor: UIColor.black
         ]
         let attributedString = NSAttributedString(string: "Flips: \(flipCount)", attributes: attributes)
         flipCountLabel.attributedText = attributedString
@@ -69,23 +79,23 @@ class ViewController: UIViewController {
     
     private func emoji(for card: Card) -> String {
         if emoji[card] == nil, emojiChoices.count > 0 {
-//            let randomStringIndex = emojiChoices.index(emojiChoices.startIndex, offsetBy: emojiChoices.count.arc4random)
-//            emoji[card] = String(emojiChoices.remove(at: randomStringIndex))
-            emoji[card] = emojiChoices.remove(at: emojiChoices.count.arc4random)
+            let randomStringIndex = emojiChoices.index(emojiChoices.startIndex, offsetBy: emojiChoices.count.arc4random)
+            emoji[card] = String(emojiChoices.remove(at: randomStringIndex))
+//            emoji[card] = emojiChoices.remove(at: emojiChoices.count.arc4random)
         }
         return emoji[card] ?? "?"
     }
     
-    private func flipCard(withEmoji emoji: String, on button: UIButton) {
+//    private func flipCard(withEmoji emoji: String, on button: UIButton) {
 //        print("flipCard(withEmoji: \(emoji)")
-        if button.currentTitle == emoji {
-            button.setTitle("", for: .normal)
-            button.backgroundColor = #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 1)
-        } else {
-            button.setTitle(emoji, for: .normal)
-            button.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        }
-    }
+//        if button.currentTitle == emoji {
+//            button.setTitle("", for: .normal)
+//            button.backgroundColor = #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 1)
+//        } else {
+//            button.setTitle(emoji, for: .normal)
+//            button.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+//        }
+//    }
 }
 
 extension Int {
