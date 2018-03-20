@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ConcentrationViewController: UIViewController {
+class ConcentrationViewController: VCLLoggingViewController {
 
     private(set) var flipCount = 0 {
         didSet {
@@ -50,6 +50,10 @@ class ConcentrationViewController: UIViewController {
         didSet {
             updateFlipCountLabel()
         }
+    }
+    
+    override var vclLoggingName: String {
+        return "Game"
     }
     
     private func updateViewFromModel() {
