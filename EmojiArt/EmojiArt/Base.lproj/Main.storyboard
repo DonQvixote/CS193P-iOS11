@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -164,6 +165,52 @@
                                             <constraint firstItem="dsx-49-tNx" firstAttribute="centerX" secondItem="7tn-XX-OYh" secondAttribute="centerX" id="HK0-sG-zob"/>
                                             <constraint firstItem="dsx-49-tNx" firstAttribute="centerY" secondItem="7tn-XX-OYh" secondAttribute="centerY" id="hEK-A0-1ww"/>
                                         </constraints>
+                                    </collectionViewCell>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AddEmojiButtonCell" id="33B-WM-8jc">
+                                        <rect key="frame" x="180" y="0.0" width="80" height="80"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="djL-Y6-qdN">
+                                                    <rect key="frame" x="20.5" y="-4.5" width="39" height="89"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="64"/>
+                                                    <state key="normal" title="+"/>
+                                                    <connections>
+                                                        <action selector="addEmoji:" destination="hHI-lh-MY1" eventType="touchUpInside" id="wcc-Qg-g1d"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="djL-Y6-qdN" firstAttribute="centerY" secondItem="33B-WM-8jc" secondAttribute="centerY" id="55E-Jv-z6Q"/>
+                                            <constraint firstItem="djL-Y6-qdN" firstAttribute="centerX" secondItem="33B-WM-8jc" secondAttribute="centerX" id="Ghw-28-GM0"/>
+                                        </constraints>
+                                    </collectionViewCell>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="EmojiInputCell" id="OYk-Dd-Vc1" customClass="TextFieldCollectionViewCell" customModule="EmojiArt" customModuleProvider="target">
+                                        <rect key="frame" x="270" y="0.0" width="80" height="80"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EV2-r1-pod">
+                                                    <rect key="frame" x="8" y="-0.5" width="64" height="81"/>
+                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="64"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="EV2-r1-pod" firstAttribute="leading" secondItem="OYk-Dd-Vc1" secondAttribute="leadingMargin" id="0i7-P3-dbe"/>
+                                            <constraint firstItem="EV2-r1-pod" firstAttribute="centerY" secondItem="OYk-Dd-Vc1" secondAttribute="centerY" id="9zc-WY-dAv"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="EV2-r1-pod" secondAttribute="trailing" id="l8B-94-cf6"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="textField" destination="EV2-r1-pod" id="Snm-pJ-igR"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
