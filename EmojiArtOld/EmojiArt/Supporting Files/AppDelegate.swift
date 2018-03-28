@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  EmojiArt
 //
-//  Created by 夏语诚 on 2018/3/28.
+//  Created by 夏语诚 on 2018/3/21.
 //  Copyright © 2018年 Banana. All rights reserved.
 //
 
@@ -39,27 +39,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    }
-
-    func application(_ app: UIApplication, open inputURL: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        // Ensure the URL is a file URL
-        guard inputURL.isFileURL else { return false }
-        
-        // Reveal / import the document at the URL
-        guard let documentBrowserViewController = window?.rootViewController as? DocumentBrowserViewController else { return false }
-
-        documentBrowserViewController.revealDocument(at: inputURL, importIfNeeded: true) { (revealedDocumentURL, error) in
-            if let error = error {
-                // Handle the error appropriately
-                print("Failed to reveal the document at URL \(inputURL) with error: '\(error)'")
-                return
-            }
-            
-            // Present the Document View Controller for the revealed URL
-            documentBrowserViewController.presentDocument(at: revealedDocumentURL!)
-        }
-
-        return true
     }
 
 
