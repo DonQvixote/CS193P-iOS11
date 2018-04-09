@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0EB0E90A206D594B00241F12 /* DocumentInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB0E909206D594B00241F12 /* DocumentInfoViewController.swift */; };
 		0EDE7B61206BA9BF00E47646 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDE7B60206BA9BF00E47646 /* AppDelegate.swift */; };
 		0EDE7B63206BA9BF00E47646 /* DocumentBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDE7B62206BA9BF00E47646 /* DocumentBrowserViewController.swift */; };
 		0EDE7B67206BA9BF00E47646 /* EmojiArtDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDE7B66206BA9BF00E47646 /* EmojiArtDocument.swift */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0EB0E909206D594B00241F12 /* DocumentInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentInfoViewController.swift; sourceTree = "<group>"; };
 		0EDE7B5D206BA9BF00E47646 /* EmojiArt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmojiArt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EDE7B60206BA9BF00E47646 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0EDE7B62206BA9BF00E47646 /* DocumentBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentBrowserViewController.swift; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 				0EDE7B7E206BAD1400E47646 /* TextFieldCollectionViewCell.swift */,
 				0EDE7B78206BAD1300E47646 /* Utilities.swift */,
 				0EDE7B66206BA9BF00E47646 /* EmojiArtDocument.swift */,
+				0EB0E909206D594B00241F12 /* DocumentInfoViewController.swift */,
 				0EDE7B68206BA9BF00E47646 /* Main.storyboard */,
 				0EDE7B76206BAAB300E47646 /* Supporting Files */,
 				0EDE7B70206BA9BF00E47646 /* Info.plist */,
@@ -123,7 +126,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = Banana;
 				TargetAttributes = {
 					0EDE7B5C206BA9BF00E47646 = {
@@ -168,6 +171,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0EB0E90A206D594B00241F12 /* DocumentInfoViewController.swift in Sources */,
 				0EDE7B81206BAD1400E47646 /* EmojiArt.swift in Sources */,
 				0EDE7B83206BAD1400E47646 /* EmojiArtView+Gestures.swift in Sources */,
 				0EDE7B67206BA9BF00E47646 /* EmojiArtDocument.swift in Sources */,
@@ -217,6 +221,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -224,6 +229,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -251,7 +257,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -274,6 +280,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -281,6 +288,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -302,7 +310,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";

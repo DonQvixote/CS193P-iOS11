@@ -21,20 +21,20 @@ extension EmojiArt.EmojiInfo {
     }
 }
 
-class EmojiArtViewController: UIViewController, UIDropInteractionDelegate, UIScrollViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDragDelegate, UICollectionViewDropDelegate {
+class EmojiArtViewController: UIViewController, UIDropInteractionDelegate, UIScrollViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDragDelegate, UICollectionViewDropDelegate, UIPopoverPresentationControllerDelegate {
     
     // MARK: - Model
     var emojiArt: EmojiArt? {
         get {
             if let url = emojiArtBackgroundImage.url {
-                let emojis = emojiArtView.subviews.flatMap { $0 as? UILabel }.flatMap { EmojiArt.EmojiInfo(label: $0) }
+                let emojis = emojiArtView.subviews.compactMap { $0 as? UILabel }.compactMap { EmojiArt.EmojiInfo(label: $0) }
                 return EmojiArt(url: url, emojis: emojis)
             }
             return nil
         }
         set {
             emojiArtBackgroundImage = (nil, nil)
-            emojiArtView.subviews.flatMap { $0 as? UILabel }.forEach { $0.removeFromSuperview() }
+            emojiArtView.subviews.compactMap { $0 as? UILabel }.forEach { $0.removeFromSuperview() }
             if let url = newValue?.url {
                 imageFetcher = ImageFetcher(fetch: url, handler: { (url, image) in
                     DispatchQueue.main.async {
@@ -93,7 +93,7 @@ class EmojiArtViewController: UIViewController, UIDropInteractionDelegate, UIScr
         }
     }
    
-    @IBAction func close(_ sender: UIBarButtonItem) {
+    @IBAction func close(_ sender: UIBarButtonItem? = nil) {
 //        save()
         if let observer = emojiArtViewObserver {
             NotificationCenter.default.removeObserver(observer)
@@ -101,7 +101,7 @@ class EmojiArtViewController: UIViewController, UIDropInteractionDelegate, UIScr
         if document?.emojiArt != nil {
             document?.thumbnail = emojiArtView.snapshot
         }
-        dismiss(animated: true) {
+        presentingViewController?.dismiss(animated: true) {
             self.document?.close(completionHandler: { success in
                 if let observer = self.documentObserver {
                     NotificationCenter.default.removeObserver(observer)
@@ -109,6 +109,13 @@ class EmojiArtViewController: UIViewController, UIDropInteractionDelegate, UIScr
             })
         }
     }
+    
+    @IBAction func close(bySegue: UIStoryboardSegue) {
+        close()
+    }
+    
+    @IBOutlet weak var embeddedDocInfoHeight: NSLayoutConstraint!
+    @IBOutlet weak var embeddedDocInfoWidth: NSLayoutConstraint!
     
     private var addingEmoji = false
     
@@ -154,6 +161,8 @@ class EmojiArtViewController: UIViewController, UIDropInteractionDelegate, UIScr
     private var documentObserver: NSObjectProtocol?
     private var emojiArtViewObserver: NSObjectProtocol?
     
+    private var embeddedDocInfo: DocumentInfoViewController?
+    
 //    override func viewDidLoad() {
 //        super.viewDidLoad()
 //        if let url = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true).appendingPathComponent("Untitled.json") {
@@ -166,6 +175,11 @@ class EmojiArtViewController: UIViewController, UIDropInteractionDelegate, UIScr
         
         documentObserver = NotificationCenter.default.addObserver(forName: Notification.Name.UIDocumentStateChanged, object: document, queue: OperationQueue.main, using: { notification in
             print("documentState changed to \(self.document!.documentState)")
+            if self.document?.documentState == .normal, let docInfoVC = self.embeddedDocInfo {
+                docInfoVC.document = self.document
+                self.embeddedDocInfoWidth.constant = docInfoVC.preferredContentSize.width
+                self.embeddedDocInfoHeight.constant = docInfoVC.preferredContentSize.height
+            }
         })
         document?.open(completionHandler: { success in
             if success {
@@ -176,6 +190,22 @@ class EmojiArtViewController: UIViewController, UIDropInteractionDelegate, UIScr
                 })
             }
         })
+    }
+    
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "Show Document Info" {
+            if let destination = segue.destination.contents as? DocumentInfoViewController {
+                document?.thumbnail = emojiArtView.snapshot
+                destination.document = document
+                if let ppc = destination.popoverPresentationController {
+                    ppc.delegate = self
+                }
+            }
+        } else if segue.identifier == "Embed Document Info" {
+            embeddedDocInfo = segue.destination.contents as? DocumentInfoViewController
+        }
     }
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
@@ -354,9 +384,15 @@ class EmojiArtViewController: UIViewController, UIDropInteractionDelegate, UIScr
 //        documentChanged()
 //    }
     
+    // MARK: - UIPopoverPresentationControllerDelegate
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        return .none
+    }
+    
     private func presentBadURLWarning(for url: URL?) {
         if !suppressBadURLWarnings {
-            let alert = UIAlertController(title: "Image Transfet Failed", message: "Couldn't transfer the dropped image from its source.\nShow this warning in the future?", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Image Transfer Failed", message: "Couldn't transfer the dropped image from its source.\nShow this warning in the future?", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Keep Warning", style: .default, handler: nil))
             alert.addAction(UIAlertAction(title: "Stop Warning", style: .destructive, handler: { action in
                 self.suppressBadURLWarnings = false

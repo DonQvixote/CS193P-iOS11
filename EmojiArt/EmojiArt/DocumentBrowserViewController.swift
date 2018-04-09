@@ -72,7 +72,6 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
 
     func presentDocument(at documentURL: URL) {
 
-        print("测试")
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         let documentViewController = storyBoard.instantiateViewController(withIdentifier: "DocumentMVC")
         if let emojiViewController = documentViewController.contents as? EmojiArtViewController {

@@ -81,7 +81,7 @@ class EmojiArtView: UIView, UIDropInteractionDelegate {
         addEmojiArtGestureRecognizers(to: label)
         addSubview(label)
         labelObservations[label] = label.observe(\.center) { (label, change) in
-            self.delegate?.emojiArtViewDidChange(self)
+            self.delegate?.emojiArtViewDidChange(self) 
             NotificationCenter.default.post(name: .EmojiArtViewDidChange, object: self)
         }
     }
